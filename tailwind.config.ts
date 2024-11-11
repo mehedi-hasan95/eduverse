@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        playfair: ["var(--font-playfair-display)"],
+      },
       colors: {
         themeBlack: "#09090B",
         themeGray: "#27272A",

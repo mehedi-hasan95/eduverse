@@ -6,7 +6,10 @@ type Props = {
 };
 export const Logo = ({ className }: Props) => {
   return (
-    <Link href="/" className={cn("text-xl md:text-2xl font-bold", className)}>
+    <Link
+      href="/"
+      className={cn("text-xl md:text-2xl font-bold dark:text-white", className)}
+    >
       Logo
     </Link>
   );
