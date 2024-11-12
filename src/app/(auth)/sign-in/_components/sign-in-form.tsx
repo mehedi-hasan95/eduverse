@@ -21,6 +21,15 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { LoadingButton } from "@/components/common/loading-button";
 import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 export const SignInForm = () => {
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -63,42 +72,73 @@ export const SignInForm = () => {
     }
   }
   return (
-    <div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="email@email.com"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+    <Card className="max-w-2xl mx-auto dark:bg-themeBlack">
+      <CardHeader className="text-center">
+        <CardTitle className="text-gradient text-2xl font-bold">
+          Welcome Back!! Please Login
+        </CardTitle>
+        <CardDescription className="text-xl pt-1 text-gradient">
+          You can create a strong and memorable first impression for your LMS by
+          inviting users to explore and learn.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-col space-y-0">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder="email@email.com"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="***" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {loading ? (
+              <LoadingButton />
+            ) : (
+              <Button variant={"outline"} type="submit">
+                Submit
+              </Button>
             )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="***" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {loading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
-        </form>
-      </Form>
-    </div>
+          </form>
+        </Form>
+      </CardContent>
+      <div className="my-5 w-full relative">
+        <div className="bg-black p-3 absolute text-themeTextGray text-xs top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          OR CONTINUE WITH
+        </div>
+        <Separator orientation="horizontal" className="bg-themeGray" />
+      </div>
+      <CardContent>
+        <div className="text-center pt-8">
+          Don&apos;t have an account?{" "}
+          <Link className="text-blue-400 underline" href={"/sign-up"}>
+            Sign Up
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
   );
 };

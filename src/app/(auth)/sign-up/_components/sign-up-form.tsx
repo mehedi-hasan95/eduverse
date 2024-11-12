@@ -38,6 +38,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 export const SignUpForm = () => {
   const { setActive, isLoaded, signUp } = useSignUp();
@@ -81,8 +83,9 @@ export const SignUpForm = () => {
         setLoading(true);
         setVerifying(true);
       } else {
+        setLoading(false);
         return toast("Error", {
-          description: "No fields must be empty",
+          description: "Fill the required fields",
         });
       }
     } catch (error: any) {
@@ -304,7 +307,8 @@ export const SignUpForm = () => {
                   <Button
                     disabled={creating}
                     type="submit"
-                    className="rounded-2xl bg-themeGray"
+                    className="rounded-2xl"
+                    variant={"outline"}
                   >
                     Sign Up with Email
                   </Button>
@@ -317,7 +321,8 @@ export const SignUpForm = () => {
                 ) : (
                   <Button
                     type="button"
-                    className="rounded-2xl bg-themeGray"
+                    className="rounded-2xl"
+                    variant={"outline"}
                     onClick={() =>
                       onGenerateCode(
                         form.getValues("email"),
@@ -332,6 +337,21 @@ export const SignUpForm = () => {
             )}
           </form>
         </Form>
+      </CardContent>
+      <div className="my-5 w-full relative">
+        <div className="bg-black p-3 absolute text-themeTextGray text-xs top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          OR CONTINUE WITH
+        </div>
+        <Separator orientation="horizontal" className="bg-themeGray" />
+      </div>
+
+      <CardContent>
+        <div className="text-center dark:text-white">
+          Already have an account?{" "}
+          <Link className="text-blue-400 underline" href={"/sign-in"}>
+            Sign In
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );
