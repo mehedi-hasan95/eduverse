@@ -29,7 +29,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { onSignUpUser } from "@/action/auth";
-import OTPInput from "./otp-input";
+
 import { LoadingButton } from "@/components/common/loading-button";
 import {
   Card,
@@ -40,6 +40,13 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { GoogleAuthButton } from "../../sign-in/_components/google-oauth-button";
+import dynamic from "next/dynamic";
+
+const OTPInput = dynamic(
+  () => import("./otp-input").then((component) => component.default),
+  { ssr: false }
+);
 
 export const SignUpForm = () => {
   const { setActive, isLoaded, signUp } = useSignUp();
@@ -344,6 +351,7 @@ export const SignUpForm = () => {
         </div>
         <Separator orientation="horizontal" className="bg-themeGray" />
       </div>
+      <GoogleAuthButton method="signup" />
 
       <CardContent>
         <div className="text-center dark:text-white">

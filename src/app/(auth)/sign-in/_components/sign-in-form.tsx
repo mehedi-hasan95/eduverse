@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { GoogleAuthButton } from "./google-oauth-button";
 
 export const SignInForm = () => {
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -131,6 +132,7 @@ export const SignInForm = () => {
         </div>
         <Separator orientation="horizontal" className="bg-themeGray" />
       </div>
+      <GoogleAuthButton method="signin" />
       <CardContent>
         <div className="text-center pt-8">
           Don&apos;t have an account?{" "}

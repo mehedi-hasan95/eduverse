@@ -64,3 +64,51 @@ export const onSignUpUser = async (data: {
     };
   }
 };
+
+export const onSignInUser = async (clerkId: string) => {
+  try {
+    const loginUser = await db.user.findUnique({
+      where: { clerkId },
+      select: {
+        id: true,
+        group: {
+          select: {
+            id: true,
+            channel: {
+              select: {
+                id: true,
+              },
+              take: 1,
+              orderBy: { createdAt: "desc" },
+            },
+          },
+        },
+      },
+    });
+    if (loginUser) {
+      if (loginUser.group.length > 0) {
+        return {
+          status: 207,
+          id: loginUser.id,
+          groupId: loginUser.group[0].id,
+          channelId: loginUser.group[0].channel[0].id,
+        };
+      }
+      return {
+        status: 200,
+        message: "User successfully logged in",
+        id: loginUser.id,
+      };
+    }
+    return {
+      status: 400,
+      message: "User could not be logged in! Try again",
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: 400,
+      message: "Oops! something went wrong. Try again",
+    };
+  }
+};
