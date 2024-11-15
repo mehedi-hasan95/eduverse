@@ -1,6 +1,11 @@
+"use client";
 import { StripeElements } from "@/components/common/stripe";
-import { PaymentForm } from "./payment-form";
 
+import dynamic from "next/dynamic";
+const PaymentForm = dynamic(
+  () => import("./payment-form").then((component) => component.PaymentForm),
+  { ssr: false }
+);
 type Props = {
   userId: string;
   affiliate: boolean;
